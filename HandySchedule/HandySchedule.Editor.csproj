@@ -301,41 +301,41 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandler">
-      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Compat">
-      <HintPath>Assets\Parse\Plugins\Unity.Compat.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.MiniJson">
-      <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Database">
-      <HintPath>Assets\Firebase\Plugins\Firebase.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Sharpen">
-      <HintPath>Assets\Firebase\Plugins\Google.Sharpen.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.JarResolver_v1.2.45.0">
-      <HintPath>Assets\PlayServicesResolver\Editor\Google.JarResolver_v1.2.45.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.45.0">
-      <HintPath>Assets\PlayServicesResolver\Editor\Google.IOSResolver_v1.2.45.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Tasks">
-      <HintPath>Assets\Parse\Plugins\Unity.Tasks.dll</HintPath>
-    </Reference>
     <Reference Include="Firebase.Editor">
       <HintPath>Assets\Firebase\Editor\Firebase.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.45.0">
-      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandlerImpl_v1.2.45.0.dll</HintPath>
+    <Reference Include="Firebase.App">
+      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Auth">
       <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Firebase.App">
-      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
+    <Reference Include="Firebase.Database">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Sharpen">
+      <HintPath>Assets\Firebase\Plugins\Google.Sharpen.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets\Parse\Plugins\Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets\Parse\Plugins\Unity.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.45.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.IOSResolver_v1.2.45.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.45.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.JarResolver_v1.2.45.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.45.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandlerImpl_v1.2.45.0.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
