@@ -5,29 +5,33 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
 using System.Globalization;
-using System
+using System;
 
 public class DatabaseHandler : MonoBehaviour {
     DependencyStatus dS = DependencyStatus.UnavailableOther;
 
 
-    private DatabaseHandler()
+    public DatabaseHandler()
     {
         //check dependencies -> for some reason task.result is undefined and shouldnt be
         /*FirebaseApp.FixDependenciesAsync().ContinueWith(task =>
         {
             dS = task.Result;
         });*/
+        InitializeFirebase();
     }
 
     private void InitializeFirebase()
     {
+        Debug.Log("creating DB instance....");
+        WaitForSeconds wait = new WaitForSeconds(3f);
         FirebaseApp app = FirebaseApp.DefaultInstance;
-        app.SetEditorDatabaseUrl("NULL"); //need to define later
+        app.SetEditorDatabaseUrl("https://handyscheduler-b716b.firebaseio.com/"); //need to define later
         if(app.Options.DatabaseUrl != null)
         {
             app.SetEditorDatabaseUrl(app.Options.DatabaseUrl);
         }
+        Debug.Log("instance created...");
         //StartListener();
     }
 
@@ -49,8 +53,13 @@ public class DatabaseHandler : MonoBehaviour {
         return monthDict[eventMonth];
     }
 
+    public void AddToDatabase(string day, string month, string year, string name, string time, Action<bool, string> callback)
+    {
+        AddToDB(name, day, month, year, time, callback);
+    }
+
     protected void AddToDB(string eventName, 
-        string eventDay, string eventMonth, int eventYear, string eventTime)
+        string eventDay, string eventMonth, string eventYear, string eventTime, Action<bool, string> callback)
     {
         //Adds the Event to the DB
         Dictionary<string, object> newEvent = new Dictionary<string, object>();
@@ -73,18 +82,22 @@ public class DatabaseHandler : MonoBehaviour {
         DateTime time = DateTime.Now;
         string timeString = time.ToString();
         string[] characterArray = timeString.Split('/');
-        int yearInt = 0;
-        Int32.TryParse(characterArray[2], out yearInt);
 
-        if (yearInt != (int)eventYear || characterArray[0] != eventMonth)
+        if (characterArray[2] != eventYear || characterArray[0] != eventMonth)
         {
             newEvent["Month of Event"] = eventMonth;
             newEvent["Event Year"] = eventYear;
         }
 
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference(eventName);
+        if(reference == null)
+        {
+            reference.SetValueAsync(eventName);
+        }
         Debug.Log("Checking database for entry....");
-        reference.Child(newEvent.ToString());
+        Debug.Log("Event Name: " + newEvent.ToString());
+        Debug.Log("Event: " + newEvent.Values.ToString());
+        reference.SetValueAsync(newEvent);
     }
 
     protected void ReadDatabase(string eventName)

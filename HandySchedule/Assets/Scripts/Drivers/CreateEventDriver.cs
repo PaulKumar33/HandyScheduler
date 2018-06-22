@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CreateEventDriver : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class CreateEventDriver : MonoBehaviour
     public Button createEventButton;
     public Button clearFieldsButton;
 
+    List<string> monthsList = new List<string>() { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+    List<string> daysList = new List<string>() { };
+
 
     // Use this for initialization
     void Start()
@@ -24,7 +28,6 @@ public class CreateEventDriver : MonoBehaviour
 
     private void Init()
     {
-        List<string> monthsList = new List<string>() { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
         /*months = GetComponent<Dropdown>();
         days = GetComponent<Dropdown>();
         years = GetComponent<InputField>();*/
@@ -34,8 +37,7 @@ public class CreateEventDriver : MonoBehaviour
 
         createEventButton.onClick.AddListener(OnCreate);
         clearFieldsButton.onClick.AddListener(OnClear);
-
-        List<string> daysList = new List<string>() { };
+        
         for (int i = 0; i<=31; i++)
         {
             daysList.Add(i.ToString());
@@ -45,10 +47,32 @@ public class CreateEventDriver : MonoBehaviour
         
     }
 
-    private void OnCreate()
+    public void OnCreate()
     {
         //flow for adding the event to the db
+        HandledBcall();
+
     }
+
+    void HandledBcall()
+    {
+        DatabaseHandler dbHandle = new DatabaseHandler();
+        dbHandle = GetComponent<DatabaseHandler>();
+        //need to handle time
+        string day = daysList[days.value];
+        string month = monthsList[months.value];
+        dbHandle.AddToDatabase(day, month, years.text, name, null, (result, resultString)=> {
+            if (result)
+            {
+                Debug.Log("Succesfully created event");
+            }
+            else if (!result)
+            {
+                Debug.Log("Unable to access db. Could not make entry");
+            }
+        });
+    }
+
 
     private void OnClear()
     {
