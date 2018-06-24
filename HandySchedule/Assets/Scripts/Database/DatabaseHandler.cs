@@ -9,7 +9,11 @@ using System;
 
 public class DatabaseHandler : MonoBehaviour {
     DependencyStatus dS = DependencyStatus.UnavailableOther;
+    public delegate void EventHandler();
 
+    public static event EventHandler onDbStateChange;
+
+    private string errorMessage;
 
     public DatabaseHandler()
     {
@@ -18,9 +22,9 @@ public class DatabaseHandler : MonoBehaviour {
         {
             dS = task.Result;
         });*/
-        InitializeFirebase();
+        InitializeFirebase();        
     }
-
+    
     private void InitializeFirebase()
     {
         Debug.Log("creating DB instance....");
@@ -53,13 +57,16 @@ public class DatabaseHandler : MonoBehaviour {
         return monthDict[eventMonth];
     }
 
-    public void AddToDatabase(string day, string month, string year, string name, string time, Action<bool, string> callback)
+    //want to change to take in a dictionary of entries
+    public void AddToDatabase(string day, string month, string year, 
+        string name, string time, string location, Action<bool, string> callback)
     {
-        AddToDB(name, day, month, year, time, callback);
+        AddToDB(name, day, month, year, time, location, callback);
     }
 
     protected void AddToDB(string eventName, 
-        string eventDay, string eventMonth, string eventYear, string eventTime, Action<bool, string> callback)
+        string eventDay, string eventMonth, string eventYear, string eventTime, 
+        string location, Action<bool, string> callback)
     {
         //Adds the Event to the DB
         Dictionary<string, object> newEvent = new Dictionary<string, object>();
@@ -94,10 +101,42 @@ public class DatabaseHandler : MonoBehaviour {
         {
             reference.SetValueAsync(eventName);
         }
+        else if (reference != null)
+        {
+            reference.ValueChanged += HandleValueChnaged;
+        }
         Debug.Log("Checking database for entry....");
         Debug.Log("Event Name: " + newEvent.ToString());
         Debug.Log("Event: " + newEvent.Values.ToString());
         reference.SetValueAsync(newEvent);
+    }
+
+    void HandleValueChnaged(object sender, ValueChangedEventArgs args)
+    {
+        if(args.DatabaseError != null)
+        {
+            string msg = args.DatabaseError.Message;
+            Debug.Log(msg);
+            errorMessage = msg;
+            return; 
+        }
+
+        CreateEventNotification();
+    }
+
+    protected void EditExistingEvent()
+    {
+        //TODO
+    }
+
+    protected void DeleteEvent()
+    {
+        //TODO
+    }
+
+    private void CreateEventNotification()
+    {
+        //TODO
     }
 
     protected void ReadDatabase(string eventName)
@@ -125,11 +164,7 @@ public class DatabaseHandler : MonoBehaviour {
                 DataSnapshot snap = task.Result;
                 //flow for reading an event
             }
-
         });
-
     }
-
-
     //handling the database
 }

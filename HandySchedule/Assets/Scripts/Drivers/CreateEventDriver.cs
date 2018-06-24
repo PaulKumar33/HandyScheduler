@@ -12,6 +12,7 @@ public class CreateEventDriver : MonoBehaviour
 
     public InputField years;
     public InputField eventName;
+    public InputField Location;
 
     public Button createEventButton;
     public Button clearFieldsButton;
@@ -61,7 +62,7 @@ public class CreateEventDriver : MonoBehaviour
         //need to handle time
         string day = daysList[days.value];
         string month = monthsList[months.value];
-        dbHandle.AddToDatabase(day, month, years.text, name, null, (result, resultString)=> {
+        dbHandle.AddToDatabase(day, month, years.text, eventName.text, null, null, (result, resultString)=> {
             if (result)
             {
                 Debug.Log("Succesfully created event");
