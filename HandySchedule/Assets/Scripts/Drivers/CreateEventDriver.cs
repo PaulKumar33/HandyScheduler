@@ -50,8 +50,10 @@ public class CreateEventDriver : MonoBehaviour
 
     public void OnCreate()
     {
-        //flow for adding the event to the db
-        HandledBcall();
+        /*
+         for now, simple want to create an event object
+         */
+        //HandledBcall();
 
     }
 

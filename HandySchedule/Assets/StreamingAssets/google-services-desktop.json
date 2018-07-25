@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "703052469432",
+    "firebase_url": "https://handyscheduler-b716b.firebaseio.com",
+    "project_id": "handyscheduler-b716b",
+    "storage_bucket": "handyscheduler-b716b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703052469432:android:281111c0f18cbee6",
+        "android_client_info": {
+          "package_name": "com.CPDevelopment.HandySceduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703052469432-fig1ur71mnu4p89o9uf9oc5ct9dc56iv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZOcKnubjKFL47RhGAT1dHUwNteJYOCXA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

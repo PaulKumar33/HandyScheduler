@@ -10,7 +10,7 @@ public class MessagingServices : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Firebase.Messaging.FirebaseMessaging.TokenReceived += 
+		//Firebase.Messaging.FirebaseMessaging.TokenReceived += 
 	}
 
     public void OnTokenRecieved(object sender, Firebase.Messaging.TokenReceivedEventArgs token)

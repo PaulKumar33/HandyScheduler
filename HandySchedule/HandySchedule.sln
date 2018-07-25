@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandySchedule", "HandySchedule.csproj", "{432A3970-4AF7-9A45-2A3C-7DEB2D13586A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandySchedule.Editor", "HandySchedule.Editor.csproj", "{389DBBA5-8983-8893-9782-FBF8A10C38BF}"
