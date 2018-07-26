@@ -17,8 +17,12 @@ public class CreateEventDriver : MonoBehaviour
     public Button createEventButton;
     public Button clearFieldsButton;
 
+    public Text dispText;
+
     List<string> monthsList = new List<string>() { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
     List<string> daysList = new List<string>() { };
+
+    EventScript ev;
 
 
     // Use this for initialization
@@ -55,6 +59,28 @@ public class CreateEventDriver : MonoBehaviour
          */
         //HandledBcall();
 
+    }
+
+    public void OnCreateLocalEvent()
+    {
+        int years = Convert.ToInt32(this.years.text);
+        ev = new EventScript(eventName.text, Location.text, years, days.value, months.value, null);
+        ev.CreateEventCall();
+        ev.DisplayLocalEventContents(eventName.text, (bool result, string resText) =>
+        {
+            if (!result)
+            {
+                Debug.Log(resText);
+                dispText.text = resText;
+            }
+
+            else if (result)
+            {
+                Debug.Log("Displaying the event");
+                dispText.text = resText;
+            }
+
+        });
     }
 
     void HandledBcall()

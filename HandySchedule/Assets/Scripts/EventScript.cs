@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System;
 
 public class EventScript : MonoBehaviour {
 
@@ -26,25 +28,32 @@ public class EventScript : MonoBehaviour {
 
     List<PublicEvent> eventList;
 
+    //
 
-    private EventScript(string eventName, string eventLocation, int eventYear, int eventDay, int eventMonth, string eventTime)
+
+    public EventScript(string eventName, string eventLocation, int eventYear, int eventDay, int eventMonth, string eventTime)
     {
         /*
          * creates an instance of an event object. Should handle multiple events
          */
 
         //initialize a list to hold event structures in case of multiple events and initialize it null
-        eventList = new List<PublicEvent>();
-        eventList = null;
+        eventList = new List<PublicEvent>();        
 
         //stores all the information of the event
-        eName = eventName;
-        eLocation = eventLocation;
-        eTime = eventTime;
+        this.eName = eventName;
+        this.eLocation = eventLocation;
+        this.eTime = eventTime;
 
-        eYear = eventYear;
-        eMonth = eventMonth;
-        eDay = eventDay;
+        this.eYear = eventYear;
+        this.eMonth = eventMonth;
+        this.eDay = eventDay;
+    }
+
+    public void CreateEventCall()
+    {
+        PublicEvent ev = CreateEventObject();
+        eventList.Add(ev);
     }
 
     private PublicEvent CreateEventObject()
@@ -55,13 +64,13 @@ public class EventScript : MonoBehaviour {
         eventNew.Location = eLocation;
         eventNew.Time = eTime;
         eventNew.Day = eDay;
-        eventNew.Month = eMonth;
+        eventNew.Month = eMonth + 1;
         eventNew.Year = eYear;
 
         return eventNew;
     }
 
-    public bool DisplayLocalEventContents(string eventName)
+    public void DisplayLocalEventContents(string eventName, Action<bool, string> callback)
     {
         /*
          *Displays the content of a given event given the event name
@@ -75,25 +84,33 @@ public class EventScript : MonoBehaviour {
                 if (nameHold == eventName)
                 {
                     //display contents of structure
-                    return true;
-                    print("Event Name: " + element.Name);
-                    print("Event Location: " + element.Location);
-                    print("Time of the event: "+element.Location);
-                    print("");
-                    print("");
-                    print("");
+                    string res;
+                    Debug.Log("Event Name: " + element.Name);
+                    Debug.Log("Event Location: " + element.Location);
+                    Debug.Log("Time of the event: "+element.Time);
+                    Debug.Log("");
+                    Debug.Log("");
+                    Debug.Log("");
+
+                    res = string.Format("Event Name: {0} \n" +
+                        "Event Location: {1} \n" +
+                        "Time of the Event: {2} \n" +
+                        "{3}/{4}/{5}", element.Name, element.Location, element.Time, element.Day, element.Month, element.Year);
+
+                    callback(true, res);
+                    return;
                 }
                 else
                     continue;
             }
 
-            print("No Such Event Exists. Try another name");
-            return false;
+            Debug.Log("No Such Event Exists. Try another name");
+            callback(false, "No Such Event Exists. Try another name");
         }
         else
         {
             Debug.Log("Event List is null. No events exist");
-            return false;
+            callback(false, "Event List is null. No events exist");
         }
     }
 
