@@ -271,8 +271,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\SaveLoad\Character.cs" />
+    <Compile Include="Assets\SaveLoad\Game.cs" />
+    <Compile Include="Assets\SaveLoad\Gameplay.cs" />
+    <Compile Include="Assets\SaveLoad\MainMenu.cs" />
+    <Compile Include="Assets\SaveLoad\SaveLoad.cs" />
+    <Compile Include="Assets\Scripts\_Event.cs" />
+    <Compile Include="Assets\Scripts\_SaveLoad.cs" />
     <Compile Include="Assets\Scripts\Database\DatabaseHandler.cs" />
     <Compile Include="Assets\Scripts\Drivers\CreateEventDriver.cs" />
+    <Compile Include="Assets\Scripts\Drivers\EventEventListResizeDriver.cs" />
+    <Compile Include="Assets\Scripts\EditEvent.cs" />
     <Compile Include="Assets\Scripts\EventScript.cs" />
     <Compile Include="Assets\Scripts\Notifications\MessagingServices.cs" />
   </ItemGroup>
@@ -280,11 +289,6 @@
     <None Include="Assets\Firebase\Editor\AppDependencies.xml" />
     <None Include="Assets\Firebase\Editor\FirebaseAuth_v4.1.0_manifest.txt" />
     <None Include="Assets\Firebase\Editor\FirebaseDatabase_v4.1.0_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseMessaging_v1.0.0_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseMessaging_v1.0.1_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseMessaging_v1.1.0_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseMessaging_v1.1.1_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseMessaging_v1.1.2_manifest.txt" />
     <None Include="Assets\Firebase\Editor\FirebaseMessaging_v5.1.0_manifest.txt" />
     <None Include="Assets\Firebase\Editor\MessagingDependencies.xml" />
     <None Include="Assets\Firebase\Plugins\Http\link.xml" />
@@ -292,7 +296,6 @@
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-messaging-unity\maven-metadata.xml" />
-    <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.45.0.txt" />
     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.75.0.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\Android\Firebase\AndroidManifest.xml" />

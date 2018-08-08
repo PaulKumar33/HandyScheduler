@@ -64,6 +64,9 @@ public class CreateEventDriver : MonoBehaviour
     public void OnCreateLocalEvent()
     {
         int years = Convert.ToInt32(this.years.text);
+        Debug.Log(eventName.text);
+        Debug.Log("#----------------------------------#");
+        Debug.Log(Location.text);
         ev = new EventScript(eventName.text, Location.text, years, days.value, months.value, null);
         ev.CreateEventCall();
         ev.DisplayLocalEventContents(eventName.text, (bool result, string resText) =>

@@ -27,8 +27,8 @@ public class EventScript : MonoBehaviour {
     int eDay;
 
     List<PublicEvent> eventList;
+    List<_Event> eList;
 
-    //
 
 
     public EventScript(string eventName, string eventLocation, int eventYear, int eventDay, int eventMonth, string eventTime)
@@ -38,36 +38,21 @@ public class EventScript : MonoBehaviour {
          */
 
         //initialize a list to hold event structures in case of multiple events and initialize it null
-        eventList = new List<PublicEvent>();        
+        eList = new List<_Event>();
 
-        //stores all the information of the event
-        this.eName = eventName;
-        this.eLocation = eventLocation;
-        this.eTime = eventTime;
+        //initialize and create a new event object
+        _Event.current = new _Event();
+        _Event cur = _Event.current;
+        cur.SetParam(eventName, eventLocation, eventTime, eventDay, eventMonth, eventYear);
 
-        this.eYear = eventYear;
-        this.eMonth = eventMonth;
-        this.eDay = eventDay;
+        Debug.Log(eventLocation);
+        Debug.Log(_Event.current.Location);
+        eList.Add(_Event.current);
     }
 
     public void CreateEventCall()
     {
-        PublicEvent ev = CreateEventObject();
-        eventList.Add(ev);
-    }
-
-    private PublicEvent CreateEventObject()
-    {
-        PublicEvent eventNew;
-
-        eventNew.Name = eName;
-        eventNew.Location = eLocation;
-        eventNew.Time = eTime;
-        eventNew.Day = eDay;
-        eventNew.Month = eMonth + 1;
-        eventNew.Year = eYear;
-
-        return eventNew;
+        _SaveLoad.Save();
     }
 
     public void DisplayLocalEventContents(string eventName, Action<bool, string> callback)
@@ -76,32 +61,26 @@ public class EventScript : MonoBehaviour {
          *Displays the content of a given event given the event name
          */
         string nameHold = null;
-        if (eventList != null)
+        if (eList != null)
         {
-            foreach (PublicEvent element in eventList)
+            foreach (_Event e in _SaveLoad.savedEvents)
             {
-                nameHold = element.Name;
-                if (nameHold == eventName)
+                _Event.current = e;
+                _Event cur = _Event.current;
+                Debug.Log(cur.Name);
+                Debug.Log(cur.Location);
+                if(cur.Name == eventName)
                 {
-                    //display contents of structure
-                    string res;
-                    Debug.Log("Event Name: " + element.Name);
-                    Debug.Log("Event Location: " + element.Location);
-                    Debug.Log("Time of the event: "+element.Time);
-                    Debug.Log("");
-                    Debug.Log("");
-                    Debug.Log("");
-
-                    res = string.Format("Event Name: {0} \n" +
-                        "Event Location: {1} \n" +
-                        "Time of the Event: {2} \n" +
-                        "{3}/{4}/{5}", element.Name, element.Location, element.Time, element.Day, element.Month, element.Year);
-
+                    string res = string.Format("{0}, Location: {1}. \n" +
+                                           "{2}/{3}/{4}", cur.Name, cur.Location, cur.Day, cur.Month, cur.Year);
                     callback(true, res);
                     return;
                 }
                 else
+                {
                     continue;
+                }
+                
             }
 
             Debug.Log("No Such Event Exists. Try another name");
@@ -114,13 +93,19 @@ public class EventScript : MonoBehaviour {
         }
     }
 
-    public bool EditLocalEvent(string eventName, string eventLocation = null, string eventTime = null, int eventYear = 0, int eventDay = 0, int eventMonth = 0)
+
+
+    /*public bool EditLocalEvent(string eventName, string eventLocation = null, string eventTime = null, int eventYear = 0, int eventDay = 0, int eventMonth = 0)
     {
+        /*
+         * for now
+         * 
         foreach(PublicEvent element in eventList)
         {
 
         }
         return false;
-    }
+        
+    }*/
 
 }
