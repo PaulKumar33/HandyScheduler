@@ -6,6 +6,15 @@ using System;
 
 public class CreateEventDriver : MonoBehaviour
 {
+    //UI objects
+    public GameObject createEvent;
+    public GameObject dispEvents;
+    public List<Button> _EventButtons;
+
+    public Button ev1;
+    public Button ev2;
+    public Button ev3;
+    
     //public ui items
     public Dropdown months;
     public Dropdown days;
@@ -23,6 +32,7 @@ public class CreateEventDriver : MonoBehaviour
     List<string> daysList = new List<string>() { };
 
     EventScript ev;
+    _Event Events;
 
 
     // Use this for initialization
@@ -33,23 +43,27 @@ public class CreateEventDriver : MonoBehaviour
 
     private void Init()
     {
-        /*months = GetComponent<Dropdown>();
-        days = GetComponent<Dropdown>();
-        years = GetComponent<InputField>();*/
         //note when using get component you only use such when it is attached 
         months.ClearOptions();
         months.AddOptions(monthsList);
 
         createEventButton.onClick.AddListener(OnCreate);
         clearFieldsButton.onClick.AddListener(OnClear);
-        
-        for (int i = 0; i<=31; i++)
+
+        _EventButtons = new List<Button>();
+        _EventButtons.Add(ev1);
+        _EventButtons.Add(ev2);
+        _EventButtons.Add(ev3);
+                        
+        for (int i = 1; i<=31; i++)
         {
             daysList.Add(i.ToString());
         }
         days.ClearOptions();
         days.AddOptions(daysList);
-        
+
+        createEvent.SetActive(true);
+        dispEvents.SetActive(false);
     }
 
     public void OnCreate()
@@ -64,12 +78,9 @@ public class CreateEventDriver : MonoBehaviour
     public void OnCreateLocalEvent()
     {
         int years = Convert.ToInt32(this.years.text);
-        Debug.Log(eventName.text);
-        Debug.Log("#----------------------------------#");
-        Debug.Log(Location.text);
-        ev = new EventScript(eventName.text, Location.text, years, days.value, months.value, null);
-        ev.CreateEventCall();
-        ev.DisplayLocalEventContents(eventName.text, (bool result, string resText) =>
+        EventScript.current = new EventScript(eventName.text, Location.text, years, days.value, months.value, null);
+        EventScript.current.CreateEventCall();
+        EventScript.current.DisplayLocalEventContents(eventName.text, (bool result, string resText) =>
         {
             if (!result)
             {
@@ -113,11 +124,36 @@ public class CreateEventDriver : MonoBehaviour
         days.RefreshShownValue();
         months.RefreshShownValue();
     }
-
-    void Update()
+    
+    public void OnDisplayEvents()
     {
+        int counter = 0;
+        createEvent.SetActive(false);
+        dispEvents.SetActive(true);
+        List<_Event> retList = new List<_Event>();
+        retList = EventScript.current.DisplayEList();
+        _Event hold;
 
+        foreach(_Event e in retList)
+        {
+            if(counter == 3)
+            {
+                break;
+            }
+            hold = e;
+            _Event.current = e;
+            string name = _Event.current.Name;
+            string location = _Event.current.Location;
+
+            Button tempBut = _EventButtons[counter];
+            string ev = string.Format("ev{0}", counter+1);
+            GameObject.Find(ev).GetComponentInChildren<Text>().text = name + "\n" + location;
+            counter++;
+        }
     }
 
-
+    public void OnEventClicked()
+    {
+        //logic for when a displayed event is chosen
+    }
 }

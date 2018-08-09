@@ -5,31 +5,33 @@ using UnityEngine.UI;
 using System;
 
 public class EventScript : MonoBehaviour {
+    public static EventScript current;   
+    public List<_Event> eList;
 
-    struct PublicEvent
+    private void Start()
     {
-        public string Name;
-        public string Location;
-        public string Time;
+        
+    }
 
-        public int Year;
-        public int Month;
-        public int Day;
-    };
+    public List<_Event> DisplayEList()
+    {
+        List<_Event> returnList = new List<_Event>();
+        foreach(_Event e in _SaveLoad.savedEvents)
+        {
+            returnList.Add(e);
+        }
 
-    //important globals belonging to the class
-    string eName;
-    string eLocation;
-    string eTime;
+        return returnList;
+    }
 
-    int eYear;
-    int eMonth;
-    int eDay;
-
-    List<PublicEvent> eventList;
-    List<_Event> eList;
+    private void Init()
+    {
+        /*
+         * initialize all the panels and objects when the app starts
+         */ 
 
 
+    }
 
     public EventScript(string eventName, string eventLocation, int eventYear, int eventDay, int eventMonth, string eventTime)
     {
@@ -54,6 +56,7 @@ public class EventScript : MonoBehaviour {
     {
         _SaveLoad.Save();
     }
+    
 
     public void DisplayLocalEventContents(string eventName, Action<bool, string> callback)
     {
